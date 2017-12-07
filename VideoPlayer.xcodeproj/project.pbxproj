@@ -14,6 +14,11 @@
 		1EBA5AD71FD99CFE0060CBAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EBA5AD51FD99CFE0060CBAD /* LaunchScreen.storyboard */; };
 		1EBA5AE41FD9A1020060CBAD /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBA5AE21FD9A1020060CBAD /* RxCocoa.framework */; };
 		1EBA5AE51FD9A1020060CBAD /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBA5AE31FD9A1020060CBAD /* RxSwift.framework */; };
+		1EBA5AE71FD9A12E0060CBAD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBA5AE61FD9A12E0060CBAD /* AVFoundation.framework */; };
+		1EBA5AE91FD9A13A0060CBAD /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5AE81FD9A13A0060CBAD /* PlayerView.swift */; };
+		1EBA5AED1FD9A1C60060CBAD /* AVPlayerItem+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5AEC1FD9A1C60060CBAD /* AVPlayerItem+Rx.swift */; };
+		1EBA5AEF1FD9A2BA0060CBAD /* AVPlayer+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5AEE1FD9A2BA0060CBAD /* AVPlayer+Rx.swift */; };
+		1EBA5AF21FD9AB300060CBAD /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5AF11FD9AB300060CBAD /* VideoPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		1EBA5AD81FD99CFE0060CBAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EBA5AE21FD9A1020060CBAD /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		1EBA5AE31FD9A1020060CBAD /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		1EBA5AE61FD9A12E0060CBAD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1EBA5AE81FD9A13A0060CBAD /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		1EBA5AEC1FD9A1C60060CBAD /* AVPlayerItem+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerItem+Rx.swift"; sourceTree = "<group>"; };
+		1EBA5AEE1FD9A2BA0060CBAD /* AVPlayer+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Rx.swift"; sourceTree = "<group>"; };
+		1EBA5AF11FD9AB300060CBAD /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EBA5AE71FD9A12E0060CBAD /* AVFoundation.framework in Frameworks */,
 				1EBA5AE41FD9A1020060CBAD /* RxCocoa.framework in Frameworks */,
 				1EBA5AE51FD9A1020060CBAD /* RxSwift.framework in Frameworks */,
 			);
@@ -61,6 +72,7 @@
 		1EBA5ACB1FD99CFE0060CBAD /* VideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				1EBA5AEA1FD9A16C0060CBAD /* extension */,
 				1EBA5ADE1FD99EE20060CBAD /* presentation */,
 				1EBA5ACC1FD99CFE0060CBAD /* AppDelegate.swift */,
 				1EBA5AD81FD99CFE0060CBAD /* Info.plist */,
@@ -71,6 +83,7 @@
 		1EBA5ADE1FD99EE20060CBAD /* presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1EBA5AF31FD9B1610060CBAD /* view */,
 				1EBA5AD31FD99CFE0060CBAD /* Assets.xcassets */,
 				1EBA5AD51FD99CFE0060CBAD /* LaunchScreen.storyboard */,
 				1EBA5AD01FD99CFE0060CBAD /* Main.storyboard */,
@@ -82,10 +95,29 @@
 		1EBA5AE11FD9A1020060CBAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EBA5AE61FD9A12E0060CBAD /* AVFoundation.framework */,
 				1EBA5AE21FD9A1020060CBAD /* RxCocoa.framework */,
 				1EBA5AE31FD9A1020060CBAD /* RxSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1EBA5AEA1FD9A16C0060CBAD /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA5AEE1FD9A2BA0060CBAD /* AVPlayer+Rx.swift */,
+				1EBA5AEC1FD9A1C60060CBAD /* AVPlayerItem+Rx.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
+		1EBA5AF31FD9B1610060CBAD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA5AE81FD9A13A0060CBAD /* PlayerView.swift */,
+				1EBA5AF11FD9AB300060CBAD /* VideoPlayer.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,6 +130,7 @@
 				1EBA5AC51FD99CFE0060CBAD /* Sources */,
 				1EBA5AC61FD99CFE0060CBAD /* Frameworks */,
 				1EBA5AC71FD99CFE0060CBAD /* Resources */,
+				1EBA5AF01FD9A9950060CBAD /* Carthage Run Script */,
 			);
 			buildRules = (
 			);
@@ -155,13 +188,36 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1EBA5AF01FD9A9950060CBAD /* Carthage Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+			);
+			name = "Carthage Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1EBA5AC51FD99CFE0060CBAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EBA5AEF1FD9A2BA0060CBAD /* AVPlayer+Rx.swift in Sources */,
+				1EBA5AE91FD9A13A0060CBAD /* PlayerView.swift in Sources */,
+				1EBA5AF21FD9AB300060CBAD /* VideoPlayer.swift in Sources */,
 				1EBA5ACF1FD99CFE0060CBAD /* ViewController.swift in Sources */,
 				1EBA5ACD1FD99CFE0060CBAD /* AppDelegate.swift in Sources */,
+				1EBA5AED1FD9A1C60060CBAD /* AVPlayerItem+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
