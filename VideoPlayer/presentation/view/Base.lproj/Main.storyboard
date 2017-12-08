@@ -26,16 +26,22 @@
                                     <constraint firstAttribute="width" secondItem="ZQK-D5-mgc" secondAttribute="height" multiplier="16:9" id="jgG-wT-28a"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="r6U-8c-6Jc">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZQK-D5-mgc" secondAttribute="trailing" id="J9h-r5-fSw"/>
+                            <constraint firstItem="r6U-8c-6Jc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WSX-08-0Cd"/>
                             <constraint firstItem="ZQK-D5-mgc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ahH-cA-pw6"/>
+                            <constraint firstItem="r6U-8c-6Jc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="han-MP-Pfz"/>
                             <constraint firstItem="ZQK-D5-mgc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yzZ-lF-b3t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="indicatorView" destination="r6U-8c-6Jc" id="JaN-Wm-0Zy"/>
                         <outlet property="playerView" destination="ZQK-D5-mgc" id="pDF-gF-LQa"/>
                     </connections>
                 </viewController>
