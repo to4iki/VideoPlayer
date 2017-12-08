@@ -4,9 +4,10 @@ import RxSwift
 import RxCocoa
 
 final class ViewController: UIViewController {
-    @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var playerView: PlayerView!
-
+    @IBOutlet private weak var navigationView: PlayerNavigationView!
+    @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
+    
     private var viewModel: PlayerViewModel!
     private let videoPlayer = VideoPlayer(url: URL(string: "https://i.imgur.com/9rGrj10.mp4")!)
     private let disposeBag = DisposeBag()
@@ -27,16 +28,16 @@ final class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.isLoading.asDriver()
+        viewModel.isLoaded.asDriver()
             .map { !$0 }
             .drive(playerView.rx.isHidden)
             .disposed(by: disposeBag)
 
-        viewModel.isLoading.asDriver()
+        viewModel.isLoaded.asDriver()
             .drive(indicatorView.rx.isHidden)
             .disposed(by: disposeBag)
 
-        viewModel.isLoading.asDriver()
+        viewModel.isLoaded.asDriver()
             .filter { $0 == true }
             .drive(onNext: { [unowned self] _ in
                 print("item ready to play")
@@ -53,6 +54,8 @@ final class ViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+
+        navigationView.seekView.bind(current: viewModel.current, duration: viewModel.duration)
     }
 
     private func backToStart() {

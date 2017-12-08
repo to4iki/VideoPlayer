@@ -5,7 +5,9 @@ import RxCocoa
 
 final class PlayerViewModel {
     let didPlayToEnd: Driver<Bool>
-    let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    let current: Driver<Float>
+    let duration: Driver<Float>
+    let isLoaded: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     private let disposeBag = DisposeBag()
 
     init(player: AVPlayer) {
@@ -13,11 +15,23 @@ final class PlayerViewModel {
             .map { _ in true }
             .asDriver(onErrorJustReturn: false)
 
+        self.current = player.rx.periodicTimeObserver(interval: CMTime(seconds: 0.1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
+            .filter { $0.isValid }
+            .map { Float($0.seconds) }
+            .filter { $0.isFinite }
+            .asDriver(onErrorJustReturn: 0)
+
+        self.duration = player.currentItem!.rx.duration
+            .filter { $0.isValid }
+            .map { Float($0.seconds) }
+            .filter { $0.isFinite }
+            .asDriver(onErrorJustReturn: 0)
+
         Observable.combineLatest(player.rx.status, Observable<Int>.timer(3.0, scheduler: MainScheduler.instance))
             .map { $0.0 == .readyToPlay }
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [unowned self] done in
-                self.isLoading.accept(done)
+                self.isLoaded.accept(done)
             })
             .disposed(by: disposeBag)
     }

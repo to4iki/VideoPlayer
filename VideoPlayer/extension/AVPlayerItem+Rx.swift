@@ -12,6 +12,11 @@ extension Reactive where Base: AVPlayerItem {
         return observe(NSError.self, #keyPath(AVPlayerItem.error))
     }
 
+    var duration: Observable<CMTime> {
+        return observe(CMTime.self, #keyPath(AVPlayerItem.duration))
+            .map { $0 ?? kCMTimeZero }
+    }
+
     var didPlayToEnd: Observable<Notification> {
         return NotificationCenter.default.rx.notification(.AVPlayerItemDidPlayToEndTime, object: base)
     }
