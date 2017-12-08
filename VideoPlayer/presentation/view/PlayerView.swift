@@ -1,5 +1,7 @@
 import UIKit
 import AVFoundation
+import RxSwift
+import RxCocoa
 
 final class PlayerView: UIView {
     var player: AVPlayer? {
@@ -17,6 +19,18 @@ final class PlayerView: UIView {
     
     override class var layerClass: AnyClass {
         return AVPlayerLayer.self
+    }
+
+    private let _tapGesture = UITapGestureRecognizer()
+    var tapGesture: Driver<Void> {
+        return _tapGesture.rx.event
+            .map { _ in }
+            .asDriver(onErrorJustReturn: ())
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addGestureRecognizer(_tapGesture)
     }
     
     deinit {

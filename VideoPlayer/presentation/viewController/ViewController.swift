@@ -43,6 +43,16 @@ final class ViewController: UIViewController {
                 self.playerView.player?.play()
             })
             .disposed(by: disposeBag)
+
+        Driver.zip(playerView.player!.rx.playing.asDriver(onErrorDriveWith: .empty()), playerView.tapGesture)
+            .drive(onNext: { [unowned self] (playing, _) in
+                if playing {
+                    self.playerView.player?.pause()
+                } else {
+                    self.playerView.player?.play()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func backToStart() {
