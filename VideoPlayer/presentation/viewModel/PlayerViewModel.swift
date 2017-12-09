@@ -7,7 +7,7 @@ final class PlayerViewModel {
     let didPlayToEnd: Driver<Bool>
     let current: Driver<Float>
     let duration: Driver<Float>
-    let isLoaded: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: true)
     private let disposeBag = DisposeBag()
 
     init(player: AVPlayer) {
@@ -28,10 +28,10 @@ final class PlayerViewModel {
             .asDriver(onErrorJustReturn: 0)
 
         Observable.combineLatest(player.rx.status, Observable<Int>.timer(3.0, scheduler: MainScheduler.instance))
-            .map { $0.0 == .readyToPlay }
-            .asDriver(onErrorJustReturn: false)
+            .map { $0.0 != .readyToPlay }
+            .asDriver(onErrorJustReturn: true)
             .drive(onNext: { [unowned self] done in
-                self.isLoaded.accept(done)
+                self.isLoading.accept(done)
             })
             .disposed(by: disposeBag)
     }

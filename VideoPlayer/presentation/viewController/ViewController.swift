@@ -28,21 +28,25 @@ final class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.isLoaded.asDriver()
-            .map { !$0 }
+        viewModel.isLoading.asDriver()
             .drive(playerView.rx.isHidden)
             .disposed(by: disposeBag)
-
-        viewModel.isLoaded.asDriver()
+        
+        viewModel.isLoading.asDriver()
+            .map { !$0 }
             .drive(indicatorView.rx.isHidden)
             .disposed(by: disposeBag)
 
-        viewModel.isLoaded.asDriver()
-            .filter { $0 == true }
+        viewModel.isLoading.asDriver()
+            .filter { !$0 }
             .drive(onNext: { [unowned self] _ in
                 print("item ready to play")
                 self.playerView.player?.play()
             })
+            .disposed(by: disposeBag)
+
+        playerView.player!.rx.playing.asDriver(onErrorDriveWith: .empty())
+            .drive(navigationView.rx.isHidden)
             .disposed(by: disposeBag)
 
         Driver.zip(playerView.player!.rx.playing.asDriver(onErrorDriveWith: .empty()), playerView.tapGesture)
