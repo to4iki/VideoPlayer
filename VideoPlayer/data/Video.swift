@@ -1,6 +1,6 @@
 import AVFoundation
 
-final class VideoPlayer {
+final class Video {
     let asset: AVAsset
     let playerItem: AVPlayerItem
     

@@ -9,12 +9,12 @@ final class ViewController: UIViewController {
     @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
     
     private var viewModel: PlayerViewModel!
-    private let videoPlayer = VideoPlayer(url: URL(string: "https://i.imgur.com/9rGrj10.mp4")!)
+    private let video = Video(url: URL(string: "https://i.imgur.com/9rGrj10.mp4")!)
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let player = AVPlayer(playerItem: videoPlayer.playerItem)
+        let player = AVPlayer(playerItem: video.playerItem)
         playerView.player = player
         viewModel = PlayerViewModel(player: player)
         bind()
