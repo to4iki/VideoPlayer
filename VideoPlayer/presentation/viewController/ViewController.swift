@@ -10,24 +10,18 @@ final class ViewController: UIViewController {
     
     private var viewModel: PlayerViewModel!
     private let video = Video(url: URL(string: "https://i.imgur.com/9rGrj10.mp4")!)
+    private let ads = stride(from: 5, through: 50, by: 10).map(MidRollAd.init)
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let player = AVPlayer(playerItem: video.playerItem)
         playerView.player = player
-        viewModel = PlayerViewModel(player: player)
+        viewModel = PlayerViewModel(player: player, ads: ads)
         bind()
     }
     
     private func bind() {
-        viewModel.didPlayToEnd
-            .drive(onNext: { [unowned self] _ in
-                print("item did play to end")
-                self.backToStart()
-            })
-            .disposed(by: disposeBag)
-
         viewModel.isLoading.asDriver()
             .drive(playerView.rx.isHidden)
             .disposed(by: disposeBag)
@@ -56,6 +50,19 @@ final class ViewController: UIViewController {
                 } else {
                     self.playerView.player?.play()
                 }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.readyToPlayAd
+            .drive(onNext: {
+                print("ad ready to play: \($0)")
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.didPlayToEnd
+            .drive(onNext: { [unowned self] _ in
+                print("item did play to end")
+                self.backToStart()
             })
             .disposed(by: disposeBag)
 
