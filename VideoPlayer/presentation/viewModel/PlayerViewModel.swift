@@ -8,6 +8,7 @@ final class PlayerViewModel {
     let current: Driver<Float>
     let duration: Driver<Float>
     let readyToPlayAd: Driver<Float>
+    let error: Driver<Error>
     let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: true)
     private let disposeBag = DisposeBag()
 
@@ -31,7 +32,12 @@ final class PlayerViewModel {
         // TODO: impl
         self.readyToPlayAd = Driver<Float>.of(0)
 
-        Observable.combineLatest(player.rx.status, Observable<Int>.timer(3.0, scheduler: MainScheduler.instance))
+        self.error = player.currentItem!.rx.status
+            .filter { $0 == .failed }
+            .map { _ in PlayerError.load }
+            .asDriver(onErrorDriveWith: .empty())
+
+        Observable.combineLatest(player.currentItem!.rx.status, Observable<Int>.timer(3.0, scheduler: MainScheduler.instance))
             .map { $0.0 != .readyToPlay }
             .asDriver(onErrorJustReturn: true)
             .drive(onNext: { [unowned self] done in

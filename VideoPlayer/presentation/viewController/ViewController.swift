@@ -59,6 +59,12 @@ final class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
+        viewModel.error
+            .drive(onNext: { _ in
+                print("item error")
+            })
+            .disposed(by: disposeBag)
+
         viewModel.didPlayToEnd
             .drive(onNext: { [unowned self] _ in
                 print("item did play to end")

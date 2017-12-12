@@ -3,6 +3,10 @@ import AVFoundation
 import RxSwift
 import RxCocoa
 
+enum PlayerError: Error {
+    case load
+}
+
 final class PlayerView: UIView {
     var player: AVPlayer? {
         get {
